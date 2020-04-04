@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wordz</title>
+
+    <style>
+        #game {
+            font-size: xx-large;
+            border: 1px solid black;
+            font-family: sans-serif;
+            border-spacing: 0.5em;
+        }
+        
+        #game td {
+            border: 1px solid black;
+            text-align: center;
+            vertical-align: middle;
+            height: 1.5em;
+            width: 1.5em;
+
+            /* do not select text */
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+            -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Old versions of Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently supported by Chrome, Opera and Firefox */
+        }
+        
+        #word {
+            /*background-color: yellow;*/
+        }
+
+        .active {
+            background-color: yellow;
+        }
+        
+        #window {
+            width: 100%;
+            height: 1000px;
+            background-color: #ccf;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            padding-left: 2em;
+        }
+
+        h1 {
+            font-family: sans-serif;
+        }
+    </style>
+
+    <script>
+        var letter = false;
+        var text = "";
+        var capturing = false;
+
+        function menter(td) {
+            letter = td;
+            if (capturing) {
+                if (td.className == "active") {
+                    mup()
+                } else {
+                    td.className = "active";
+                    text += letter.innerHTML;
+                    document.getElementById("word").innerHTML = text;
+                }
+            }
+        }
+
+        function mleave(td) {
+            letter = false;
+        }
+
+        function mdown() {
+            capturing = true;
+            if (letter) {
+                menter(letter)
+            }
+        }
+
+        function mup() {
+            if (capturing) {
+                capturing = false;
+                text += "<br>";
+
+                var table = document.getElementById("game");
+                for (var row of table.rows) {
+                    for (var cell of row.cells) {
+                        cell.className = "";
+                    }
+                }
+            }
+        }
+
+
+    </script>
+
+</head>
+<body>
+
+<div id="window" onmousedown="mdown()" onmouseup="mup()">
+
+<h1>Wordz</h1>
+
+<table id="game" >
+
+    <tr>
+        <td onmouseleave="mleave(this)" onmouseenter="menter(this)">J</td>
+        <td onmouseleave="mleave(this)" onmouseenter="menter(this)">E</td>
+        <td onmouseleave="mleave(this)" onmouseenter="menter(this)">I</td>
+        <td onmouseleave="mleave(this)" onmouseenter="menter(this)">B</td>
+    </tr>
+    <tr>
+        <td onmouseleave="mleave(this)" onmouseenter="menter(this)">R</td>
+        <td onmouseleave="mleave(this)" onmouseenter="menter(this)">O</td>
+        <td onmouseleave="mleave(this)" onmouseenter="menter(this)">P</td>
+        <td onmouseleave="mleave(this)" onmouseenter="menter(this)">L</td>
+    </tr>
+    <tr>
+        <td onmouseleave="mleave(this)" onmouseenter="menter(this)">Y</td>
+        <td onmouseleave="mleave(this)" onmouseenter="menter(this)">D</td>
+        <td onmouseleave="mleave(this)" onmouseenter="menter(this)">T</td>
+        <td onmouseleave="mleave(this)" onmouseenter="menter(this)">A</td>
+    </tr>
+    <tr>
+        <td onmouseleave="mleave(this)" onmouseenter="menter(this)">E</td>
+        <td onmouseleave="mleave(this)" onmouseenter="menter(this)">N</td>
+        <td onmouseleave="mleave(this)" onmouseenter="menter(this)">C</td>
+        <td onmouseleave="mleave(this)" onmouseenter="menter(this)">A</td>
+    </tr>
+
+
+</table>
+
+<br><br>
+
+<div id="word"></div>
+
+
+</div>
+
+</body>
+</html>
+
